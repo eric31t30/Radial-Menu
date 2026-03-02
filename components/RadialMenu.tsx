@@ -4,8 +4,9 @@ import RadialImage from "./RadialImage";
 import type { ImageItem } from "@/types/ImageItem";
 import ImageInput from "./ImageInput";
 import MenuButton from "./MenuButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Toaster, toast } from "sonner";
 
 type Props = {
   images: ImageItem[];
@@ -24,6 +25,7 @@ function RadialMenu({ images }: Props) {
   const radius = 120;
   const diameter = radius * 2;
   const angleStep = 360 / images.length;
+  const imagesLimit = 8;
 
   const toggleMode = (mode: InputMode) => {
     if (mode !== null) setLastMode(mode);
@@ -35,50 +37,76 @@ function RadialMenu({ images }: Props) {
 
     await fetch("/api/images", {
       method: "DELETE",
-      headers: { "Conten-Type": "application/json" },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: selectedImage.id })
     });
 
+    const remaining = images.filter(img => img.id !== selectedImage.id);
+    setSelectedImage(remaining[0] ?? null);
     router.refresh();
   }
+
+  useEffect(() => {
+    console.log(selectedImage);
+    
+  }, [selectedImage])
+  
 
   return (
     <section
       aria-label="Radial menu"
       className="relative flex items-center justify-center h-screen w-screen"
     >
-      <div className="absolute flex justify-center items-center gap-3">
-        <MenuButton
-          icon="/icons/edit.svg"
-          alt="Edit button"
-          color="bg-orange-600"
-          borderColor="border-orange-600"
-          iconClass="invert"
-          size="size-7"
-          active={inputMode === "edit"}
-          onClick={() => toggleMode("edit")}
-        />
+      <div className="
+        absolute grid gap-3
+        grid-cols-2 grid-rows-2 
+      ">
 
-        <MenuButton
-          icon="/icons/add.svg"
-          alt="Add button"
-          color="bg-white"
-          borderColor="border-white"
-          iconClass={inputMode === "add" ? "rotate-135 size-7" : "size-7"}
-          active={inputMode === "add"}
-          onClick={() => toggleMode("add")}
-        />
+        <div className="w-full flex justify-center items-center col-span-2">
+          <MenuButton
+            icon="/icons/add.svg"
+            alt="Add button"
+            color="bg-white"
+            borderColor="border-white"
+            buttonClass={`${images.length === imagesLimit ? "opacity-50" : ""}`}
+            iconClass={inputMode === "add" ? "rotate-135 size-7" : "size-7"}
+            active={inputMode === "add"}
+            onClick={() => {
+              if(images.length === imagesLimit){
+                toast.info(`Limite de imagens alcanzado (${images.length}/${imagesLimit})`)
+              }else{
+                toggleMode("add")
+              }
+            }}
+          />
+        </div>
 
-        <MenuButton
-          icon="/icons/delete.svg"
-          alt="Delete button"
-          color="bg-red-500"
-          borderColor="border-red-500"
-          iconClass="invert"
-          size="size-7"
-          onClick={handleDelete}
-        />
+        <div className="w-full flex justify-center items-center row-start-2">
+          <MenuButton
+            icon="/icons/edit.svg"
+            alt="Edit button"
+            color="bg-orange-600"
+            borderColor="border-orange-600"
+            buttonClass={`${!selectedImage ? "pointer-events-none opacity-50" : ""}`}
+            iconClass="invert"
+            size="size-7"
+            active={inputMode === "edit"}
+            onClick={() => toggleMode("edit")}
+          />
+        </div>
 
+        <div className="w-full flex justify-center items-center row-start-2">
+          <MenuButton
+            icon="/icons/delete.svg"
+            alt="Delete button"
+            color="bg-red-500"
+            borderColor="border-red-500"
+            buttonClass={`${!selectedImage ? "pointer-events-none opacity-50" : ""}`}
+            iconClass="invert"
+            size="size-7"
+            onClick={handleDelete}
+          />
+        </div>
       </div>
 
       <div className="relative flex items-center justify-center z-50">
@@ -114,6 +142,7 @@ function RadialMenu({ images }: Props) {
         className="absolute z-0 rounded-full border border-neutral-100/20 pointer-events-none"
         style={{ width: radius * 1.2, height: radius * 1.2 }}
       />
+      <Toaster position="bottom-left" expand={true} richColors />
     </section>
   );
 }
