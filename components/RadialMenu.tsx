@@ -1,17 +1,13 @@
 "use client";
 
 import RadialImage from "./RadialImage";
-import type { RadialItem } from "@/types/radial";
+import type { ImageItem } from "@/types/ImageItem";
 
-const images: RadialItem[] = [
-  { id: "1", src: "https://picsum.photos/id/1018/500/500" },
-  { id: "2", src: "https://picsum.photos/id/1015/500/500" },
-  { id: "3", src: "https://picsum.photos/id/1019/500/500" },
-  { id: "4", src: "https://picsum.photos/id/1020/500/500" },
-  { id: "5", src: "https://picsum.photos/id/1024/500/500" },
-];
+type Props ={
+  images: ImageItem[]
+}
 
-function RadialMenu() {
+function RadialMenu({ images }: Props) {
   const radius = 120;
   const diameter = radius * 2;
 
