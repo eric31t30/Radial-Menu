@@ -65,7 +65,6 @@ function ImageInput({ open, onClose }: Props) {
         }
         `
       }
-
     >
 
       <div className={`

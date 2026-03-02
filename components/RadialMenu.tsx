@@ -14,6 +14,7 @@ type Props ={
 function RadialMenu({ images }: Props) {
 
   const [activeInput, setActiveInput] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<ImageItem | null>(null);
 
   const radius = 120;
   const diameter = radius * 2;
@@ -60,6 +61,8 @@ function RadialMenu({ images }: Props) {
               item={item}
               angle={angle}
               radius={radius}
+              isSelected={item.id === selectedImage!.id}
+              onSelect={() => setSelectedImage(item)}
             />
           );
         })}
