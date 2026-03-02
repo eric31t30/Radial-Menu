@@ -6,12 +6,12 @@ type Props = {
   color: string;
   borderColor: string;
   iconClass?: string;
-  active: boolean;
-  onClick: () => void;
+  active?: boolean;
+  onClick?: () => void;
   size?: string;
 }
 
-function MenuButton({ icon, alt, color, borderColor, iconClass, active, onClick, size = "size-7" }: Props) {
+function MenuButton({ icon, alt, color, borderColor, iconClass, active, onClick, size = "size-9" }: Props) {
   return (
     <button
       className={`

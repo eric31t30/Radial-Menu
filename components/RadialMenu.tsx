@@ -5,6 +5,7 @@ import type { ImageItem } from "@/types/ImageItem";
 import ImageInput from "./ImageInput";
 import MenuButton from "./MenuButton";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 type Props = {
   images: ImageItem[];
@@ -13,10 +14,12 @@ type Props = {
 type InputMode = "add" | "edit" | null;
 
 function RadialMenu({ images }: Props) {
+
   const [inputMode, setInputMode] = useState<InputMode>(null);
   const [selectedImage, setSelectedImage] = useState<ImageItem | null>(images[0]);
   const [lastMode, setLastMode] = useState<"add" | "edit">("add");
 
+  const router = useRouter();
 
   const radius = 120;
   const diameter = radius * 2;
@@ -27,6 +30,18 @@ function RadialMenu({ images }: Props) {
     setInputMode((prev) => (prev === mode ? null : mode));
   };
 
+  async function handleDelete() {
+    if (!selectedImage) return;
+
+    await fetch("/api/images", {
+      method: "DELETE",
+      headers: { "Conten-Type": "application/json" },
+      body: JSON.stringify({ id: selectedImage.id })
+    });
+
+    router.refresh();
+  }
+
   return (
     <section
       aria-label="Radial menu"
@@ -35,24 +50,35 @@ function RadialMenu({ images }: Props) {
       <div className="absolute flex justify-center items-center gap-3">
         <MenuButton
           icon="/icons/edit.svg"
-          alt="Edit"
+          alt="Edit button"
           color="bg-orange-600"
           borderColor="border-orange-600"
           iconClass="invert"
-          size="size-6"
+          size="size-7"
           active={inputMode === "edit"}
           onClick={() => toggleMode("edit")}
         />
 
         <MenuButton
           icon="/icons/add.svg"
-          alt="Add"
+          alt="Add button"
           color="bg-white"
           borderColor="border-white"
           iconClass={inputMode === "add" ? "rotate-135 size-7" : "size-7"}
           active={inputMode === "add"}
           onClick={() => toggleMode("add")}
         />
+
+        <MenuButton
+          icon="/icons/delete.svg"
+          alt="Delete button"
+          color="bg-red-500"
+          borderColor="border-red-500"
+          iconClass="invert"
+          size="size-7"
+          onClick={handleDelete}
+        />
+
       </div>
 
       <div className="relative flex items-center justify-center z-50">
