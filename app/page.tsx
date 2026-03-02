@@ -1,4 +1,7 @@
+
+import { Suspense } from "react";
 import RadialMenu from "@/components/RadialMenu";
+import MainLoader from "@/components/loaders/MainLoader";
 
 async function fetchImages() {
   try {
@@ -6,28 +9,28 @@ async function fetchImages() {
       cache: "no-store",
     });
 
-    if(!res.ok){
+    if (!res.ok) {
       throw new Error("Failed to fetch images");
     }
-    
-    console.log(res);
-    
-    return res.json();
 
+    return res.json();
   } catch (err) {
-    console.log(err);
+    console.error(err);
+    return [];
   }
 }
 
-export default async function HomePage() {
-
+async function RadialMenuWrapper() {
   const images = await fetchImages();
+  return <RadialMenu images={images} />;
+}
 
+export default function HomePage() {
   return (
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-neutral-950 text-white">
-      <div className="z-10 text-center">
-        <RadialMenu  images={images}/>
-      </div>
+      <Suspense fallback={<MainLoader />}>
+        <RadialMenuWrapper />
+      </Suspense>
     </main>
   );
 }
