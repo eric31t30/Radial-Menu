@@ -9,7 +9,9 @@ async function fetchImages() {
     if(!res.ok){
       throw new Error("Failed to fetch images");
     }
- 
+    
+    console.log(res);
+    
     return res.json();
 
   } catch (err) {

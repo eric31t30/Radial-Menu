@@ -10,6 +10,7 @@ type Props = {
 };
 
 function RadialImage({ item, angle, radius, isSelected, onSelect }: Props) {
+
   return (
     <div
       key={item.id}
