@@ -2,89 +2,90 @@
 
 import RadialImage from "./RadialImage";
 import type { ImageItem } from "@/types/ImageItem";
-
-import Image from "next/image";
 import ImageInput from "./ImageInput";
+import MenuButton from "./MenuButton";
 import { useState } from "react";
 
-type Props ={
-  images: ImageItem[]
-}
+type Props = {
+  images: ImageItem[];
+};
+
+type InputMode = "add" | "edit" | null;
 
 function RadialMenu({ images }: Props) {
+  const [inputMode, setInputMode] = useState<InputMode>(null);
+  const [selectedImage, setSelectedImage] = useState<ImageItem | null>(images[0]);
+  const [lastMode, setLastMode] = useState<"add" | "edit">("add");
 
-  const [activeInput, setActiveInput] = useState(false);
 
   const radius = 120;
   const diameter = radius * 2;
-
   const angleStep = 360 / images.length;
+
+  const toggleMode = (mode: InputMode) => {
+    if (mode !== null) setLastMode(mode);
+    setInputMode((prev) => (prev === mode ? null : mode));
+  };
 
   return (
     <section
       aria-label="Radial menu"
       className="relative flex items-center justify-center h-screen w-screen"
     >
-      <button 
-        className="
-          absolute
-          size-8
-          bg-white text-2xl text-black
-          rounded-full z-50
-          flex items-center justify-center
-          cursor-pointer
-          transition duration-500 hover:scale-105
-        "
-        onClick={()=> setActiveInput((i)=> !i)}
-      >
-        <Image
-          src={"/icons/add.svg"}
-          alt="Add"
-          width={26}
-          height={26}
-          quality={90}
-          className={`
-            size-7 
-            transition duration-700 ${activeInput ? "rotate-135" : ""}
-          `}
+      <div className="absolute flex justify-center items-center gap-3">
+        <MenuButton
+          icon="/icons/edit.svg"
+          alt="Edit"
+          color="bg-orange-600"
+          borderColor="border-orange-600"
+          iconClass="invert"
+          size="size-6"
+          active={inputMode === "edit"}
+          onClick={() => toggleMode("edit")}
         />
-      </button>
+
+        <MenuButton
+          icon="/icons/add.svg"
+          alt="Add"
+          color="bg-white"
+          borderColor="border-white"
+          iconClass={inputMode === "add" ? "rotate-135 size-7" : "size-7"}
+          active={inputMode === "add"}
+          onClick={() => toggleMode("add")}
+        />
+      </div>
 
       <div className="relative flex items-center justify-center z-50">
         {images.map((item, index) => {
           const angle = angleStep * index;
-
           return (
             <RadialImage
               key={item.id}
               item={item}
               angle={angle}
               radius={radius}
+              isSelected={item.id === selectedImage?.id}
+              onSelect={() => setSelectedImage(item)}
             />
           );
         })}
       </div>
 
-      <ImageInput open={activeInput} onClose={() => setActiveInput(false)} />
-
-      <span
-        aria-hidden="true"
-        className="
-          absolute z-0 rounded-full
-          border border-neutral-100/40
-          border-b-neutral-100 border-t-neutral-100
-          pointer-events-none
-        "
-        style={{ width: diameter, height: diameter }}
+      <ImageInput
+        open={inputMode !== null}
+        mode={inputMode ?? lastMode}
+        editingImage={inputMode === "edit" ? selectedImage : null}
+        onClose={() => setInputMode(null)}
       />
 
       <span
         aria-hidden="true"
-        className="
-          absolute z-0 rounded-full
-          border border-neutral-100/20
-          pointer-events-none
-        "
+        className="absolute z-0 rounded-full border border-neutral-100/40 border-b-neutral-100 border-t-neutral-100 pointer-events-none"
+        style={{ width: diameter, height: diameter }}
+      />
+      <span
+        aria-hidden="true"
+        className="absolute z-0 rounded-full border border-neutral-100/20 pointer-events-none"
         style={{ width: radius * 1.2, height: radius * 1.2 }}
       />
     </section>
