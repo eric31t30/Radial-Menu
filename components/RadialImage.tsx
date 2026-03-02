@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import type { ImageItem } from "@/types/ImageItem";
-import MenuImageLoader from "./MenuImageLoader";
+import MenuImageLoader from "./loaders/MenuImageLoader";
 
 type Props = {
   item: ImageItem;
