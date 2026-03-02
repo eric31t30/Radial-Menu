@@ -5,17 +5,18 @@ type Props = {
   alt: string;
   color: string;
   borderColor: string;
+  buttonClass?: string;
   iconClass?: string;
   active?: boolean;
   onClick?: () => void;
   size?: string;
 }
 
-function MenuButton({ icon, alt, color, borderColor, iconClass, active, onClick, size = "size-9" }: Props) {
+function MenuButton({ icon, alt, color, borderColor, buttonClass, iconClass, active, onClick, size = "size-9" }: Props) {
   return (
     <button
       className={`
-        relative ${size} ${color}
+        relative ${size} ${color} ${buttonClass}
         text-2xl text-black rounded-full z-50
         flex items-center justify-center cursor-pointer transition duration-500 hover:scale-105
       `}
