@@ -1,8 +1,8 @@
 import Image from "next/image";
-import type { RadialItem } from "@/types/radial";
+import type { ImageItem } from "@/types/ImageItem";
 
 type Props = {
-  item: RadialItem;
+  item: ImageItem;
   angle: number;
   radius: number;
 };
@@ -32,7 +32,7 @@ function RadialImage({ item, angle, radius }: Props) {
         "
       >
         <Image
-          src={item.src}
+          src={item.url}
           alt={`Image ${item.id}`}
           fill
           sizes="80px"

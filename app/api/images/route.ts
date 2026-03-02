@@ -1,9 +1,6 @@
 import { NextResponse } from "next/server";
 
-type ImageItem = {
-    id: string,
-    url: string
-}
+import type { ImageItem } from "@/types/ImageItem";
 
 let images: ImageItem[] = [
     {
