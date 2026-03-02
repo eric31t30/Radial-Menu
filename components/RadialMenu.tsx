@@ -120,7 +120,7 @@ function RadialMenu({ images }: Props) {
               radius={radius}
               isSelected={item.id === selectedImage?.id}
               onSelect={() => setSelectedImage(item)}
-            />
+            />   
           );
         })}
       </div>
