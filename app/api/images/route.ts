@@ -19,6 +19,22 @@ let images: ImageItem[] = [
     id: crypto.randomUUID(),
     url: "https://picsum.photos/id/1020/1920/1080",
   },
+  {
+    id: crypto.randomUUID(),
+    url: "https://picsum.photos/id/1018/1920/1080",
+  },
+  {
+    id: crypto.randomUUID(),
+    url: "https://picsum.photos/id/1015/1920/1080",
+  },
+  {
+    id: crypto.randomUUID(),
+    url: "https://picsum.photos/id/1019/1920/1080",
+  },
+  {
+    id: crypto.randomUUID(),
+    url: "https://picsum.photos/id/1020/1920/1080",
+  },
 ]
 
 const allowedDomains = [

@@ -28,7 +28,7 @@ function MenuButton({ icon, alt, color, borderColor, buttonClass, iconClass, act
         width={26}
         height={26}
         quality={90}
-        className={`size-4 transition duration-700 ${iconClass ?? ""}`}
+        className={`size-[50%] transition duration-700 ${iconClass ?? ""}`}
       />
 
       <span className={`
@@ -37,6 +37,7 @@ function MenuButton({ icon, alt, color, borderColor, buttonClass, iconClass, act
         border ${borderColor}
         pointer-events-none
         transition duration-700 ${active ? "opacity-100" : "opacity-0"}
+        lg:border-2
       `}/>
     </button>
   );
