@@ -1,9 +1,6 @@
-
-import { Suspense } from "react";
-import RadialMenu from "@/components/RadialMenu";
-import MainLoader from "@/components/loaders/MainLoader";
 import { SelectedImageProvider } from "@/context/SelectedImageContext";
 import BackgroundImage from "@/components/BackgroundImage";
+import MenuSection from "@/components/MenuSection";
 
 async function fetchImages() {
   try {
@@ -22,22 +19,20 @@ async function fetchImages() {
   }
 }
 
-async function RadialMenuWrapper() {
-  const images = await fetchImages();
-  return <RadialMenu images={images} />;
-}
+export default async function HomePage() {
 
-export default function HomePage() {
+  const images = await fetchImages();
+
   return (
     <SelectedImageProvider >
       <main className="
-        relative flex min-h-screen items-center justify-center 
+        relative min-h-screen flex items-center justify-center 
         overflow-hidden bg-neutral-950 text-white
       ">
-        <Suspense fallback={<MainLoader />}>
-          <RadialMenuWrapper />
-        </Suspense>
-        <BackgroundImage />
+        
+      <MenuSection images={images}/>
+      <BackgroundImage />
+
       </main>
     </SelectedImageProvider>
   );
