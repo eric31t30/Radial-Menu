@@ -76,56 +76,57 @@ function RadialMenu({ images }: Props) {
         grid-cols-2 grid-rows-2 
         sm:gap-4 sm:gap-x-5
         lg:gap-6
-        xl:gap-4 xl:gap-x-5
-        2xl:gap-3 2xl:gap-x-4
+        xl:gap-3
+        2xl:gap-3
+
       ">
 
-        <div className="w-full flex justify-center items-center col-span-2">
-          <MenuButton
-            icon="/icons/add.svg"
-            alt="Add button"
-            color="bg-white"
-            borderColor="border-white"
-            buttonClass={`${images.length === imagesLimit ? "opacity-50" : ""}`}
-            iconClass={inputMode === "add" ? "rotate-135" : ""}
-            size="sm:size-12 lg:size-14 xl:size-13 2xl:size-12"
-            active={inputMode === "add"}
-            onClick={() => {
-              if(images.length === imagesLimit){
-                toast.info(`Limite de imagens alcanzado (${images.length}/${imagesLimit})`)
-              }else{
-                toggleMode("add")
-              }
-            }}
-          />
-        </div>
+        <MenuButton
+          icon="/icons/add.svg"
+          alt="Add button"
+          color="bg-cyan-500"
+          borderColor="border-cyan-500"
+          iconClass={`${inputMode === "add" ? "rotate-135" : ""} invert`}
+          buttonClass={`${images.length === imagesLimit ? "brightness-70" : ""}`}
+          size="size-9 sm:size-12 lg:size-14 xl:size-14 2xl:size-13"
+          active={inputMode === "add"}
+          onClick={() => {
+            if(images.length === imagesLimit){
+              toast.info(`Limite de imagens alcanzado (${images.length}/${imagesLimit})`)
+            }else{
+              toggleMode("add")
+            }
+          }}
+          position="col-span-2"
+          border="rounded-full"
+        />
 
-        <div className="w-full flex justify-center items-center row-start-2">
-          <MenuButton
-            icon="/icons/edit.svg"
-            alt="Edit button"
-            color="bg-orange-600"
-            borderColor="border-orange-600"
-            buttonClass={`${!selectedImage ? "pointer-events-none opacity-50" : ""}`}
-            iconClass="invert"
-            size="size-7 sm:size-10"
-            active={inputMode === "edit"}
-            onClick={() => toggleMode("edit")}
-          />
-        </div>
+        <MenuButton
+          icon="/icons/edit.svg"
+          alt="Edit button"
+          color="bg-orange-600"
+          borderColor="border-orange-600"
+          buttonClass={`${!selectedImage ? "pointer-events-none brightness-70" : ""}`}
+          iconClass="invert"
+          size="size-7 sm:size-11"
+          active={inputMode === "edit"}
+          onClick={() => toggleMode("edit")}
+          position="row-start-2"
+          border="rounded-full"
+        />
 
-        <div className="w-full flex justify-center items-center row-start-2">
-          <MenuButton
-            icon="/icons/delete.svg"
-            alt="Delete button"
-            color="bg-red-500"
-            borderColor="border-red-500"
-            buttonClass={`${!selectedImage ? "pointer-events-none opacity-50" : ""}`}
-            iconClass="invert"
-            size="size-7 sm:size-10"
-            onClick={handleDelete}
-          />
-        </div>
+        <MenuButton
+          icon="/icons/delete.svg"
+          alt="Delete button"
+          color="bg-red-500"
+          borderColor="border-red-500"
+          buttonClass={`${!selectedImage ? "pointer-events-none brightness-70" : ""}`}
+          iconClass="invert"
+          size="size-7 sm:size-11"
+          onClick={handleDelete}
+          position="row-start-2"
+          border="rounded-full"
+        />
       </div>
 
       <div className="relative flex items-center justify-center z-50">
@@ -154,17 +155,24 @@ function RadialMenu({ images }: Props) {
       <span
         aria-hidden="true"
         className="
-          absolute z-0 rounded-full border
-          border-neutral-100/40 border-b-neutral-100 border-t-neutral-100 
+          absolute z-0 rounded-full 
+          border-2 border-neutral-100/40 border-l-neutral-100 border-r-neutral-100 
           pointer-events-none
         "
-        style={{ width: diameter, height: diameter }}
+        style={{
+          width: diameter * 1.35,
+          height: diameter * 1.35,
+          backgroundColor: 'rgba(0, 0, 0, .7)',
+          WebkitMaskImage: 'radial-gradient(circle, transparent 40%, black 80%)',
+          maskImage: 'radial-gradient(circle, transparent 40%, black 80%)',
+        }}
       />
 
       <span
         aria-hidden="true"
         className="
-          absolute z-0 rounded-full border
+          absolute z-0 rounded-full border-2
+          bg-black/40 backdrop-blur-[2px]
           border-neutral-100/40 border-b-neutral-100 border-t-neutral-100 
           pointer-events-none
         "
