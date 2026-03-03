@@ -4,7 +4,7 @@ import RadialImage from "./RadialImage";
 import type { ImageItem } from "@/types/ImageItem";
 import ImageInput from "./ImageInput";
 import MenuButton from "./MenuButton";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Toaster, toast } from "sonner";
 import { useSelectedImage } from "@/context/SelectedImageContext";
@@ -54,10 +54,9 @@ function RadialMenu({ images }: Props) {
     router.refresh();
   }
 
-  useEffect(() => {
-    console.log(selectedImage);
-    
-  }, [selectedImage])
+  const handleSelect = useCallback((item: ImageItem) => {
+    setSelectedImage(item)
+  }, [setSelectedImage])
   
 
   return (
@@ -127,7 +126,7 @@ function RadialMenu({ images }: Props) {
               angle={angle}
               radius={radius}
               isSelected={item.id === selectedImage?.id}
-              onSelect={() => setSelectedImage(item)}
+              onSelect={handleSelect}
             />   
           );
         })}

@@ -48,6 +48,7 @@ function BackgroundImage() {
           className="object-cover"
           priority
           sizes="100vw"
+          quality={100}
         />
       )}
 
@@ -66,6 +67,7 @@ function BackgroundImage() {
             className="object-cover"
             priority
             sizes="100vw"
+            quality={100}    
           />
         </div>
       )}
