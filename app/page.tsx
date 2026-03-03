@@ -2,9 +2,15 @@ import { SelectedImageProvider } from "@/context/SelectedImageContext";
 import BackgroundImage from "@/components/BackgroundImage";
 import MenuSection from "@/components/MenuSection";
 
+
 async function fetchImages() {
+
+  const baseUrl = process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : 'http://localhost:3000'
+
   try {
-    const res = await fetch("http://localhost:3000/api/images", {
+    const res = await fetch(`${baseUrl}/api/images`, {
       cache: "no-store",
     });
 
