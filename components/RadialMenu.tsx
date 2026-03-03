@@ -63,7 +63,7 @@ function RadialMenu({ images }: Props) {
   return (
     <section
       aria-label="Radial menu"
-      className="relative flex items-center justify-center h-screen w-screen"
+      className="relative flex items-center justify-center h-screen w-screen z-10"
     >
       <div className="
         absolute grid gap-3

@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import RadialMenu from "@/components/RadialMenu";
 import MainLoader from "@/components/loaders/MainLoader";
 import { SelectedImageProvider } from "@/context/SelectedImageContext";
+import BackgroundImage from "@/components/BackgroundImage";
 
 async function fetchImages() {
   try {
@@ -36,6 +37,7 @@ export default function HomePage() {
         <Suspense fallback={<MainLoader />}>
           <RadialMenuWrapper />
         </Suspense>
+        <BackgroundImage />
       </main>
     </SelectedImageProvider>
   );
