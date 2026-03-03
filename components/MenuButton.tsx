@@ -48,7 +48,7 @@ function MenuButton({ icon, alt, color, border, borderColor, buttonClass, iconCl
           border ${borderColor}
           pointer-events-none
           transition duration-700 ${active ? "opacity-100" : "opacity-0"}
-          lg:border-2
+          lg:border-2 lg:size-[130%]
         `} />
       </button>
     </div>

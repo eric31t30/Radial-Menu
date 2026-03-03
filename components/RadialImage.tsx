@@ -43,8 +43,7 @@ function RadialImage({ item, angle, radius, isSelected, onSelect }: Props) {
             "border-b-cyan-500/0 border-t-cyan-500/0 border-l-cyan-500/0 border-r-cyan-500/0"
           }
           sm:size-24 sm:border-4
-          lg:size-30
-          xl:size-26
+          lg:size-24
           2xl:size-22
         `}
       >
