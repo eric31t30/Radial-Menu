@@ -71,8 +71,9 @@ function ImageInput({ open, mode, editingImage, onClose }: Props) {
       className={`
         absolute w-2/3 top-10
         transition duration-700
-        border border-white/50 rounded-4xl pl-3 pr-2 py-1
+        border border-white/80 rounded-4xl pl-3 pr-2 py-1
         flex items-center justify-between gap-2
+        bg-black/30 backdrop-blur-md
         ${open ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-6 pointer-events-none"}
       `}
     >

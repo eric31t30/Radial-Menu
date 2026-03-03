@@ -24,7 +24,7 @@ function RadialMenu({ images }: Props) {
 
   const router = useRouter();
 
-  const radius = 120;
+  const radius = 130;
   const diameter = radius * 2;
   const angleStep = 360 / images.length;
   const imagesLimit = 8;
@@ -142,12 +142,22 @@ function RadialMenu({ images }: Props) {
 
       <span
         aria-hidden="true"
-        className="absolute z-0 rounded-full border border-neutral-100/40 border-b-neutral-100 border-t-neutral-100 pointer-events-none"
-        style={{ width: diameter, height: diameter }}
+        className="absolute z-0 rounded-full pointer-events-none bg-black/30"
+        style={{
+          width: diameter * 1.28,
+          height: diameter * 1.28,
+          backdropFilter: "blur(3px)",
+          maskImage: "radial-gradient(circle, transparent 40%, black 40%)",
+          WebkitMaskImage: "radial-gradient(circle, transparent 40%, black 40%)",
+        }}
       />
       <span
         aria-hidden="true"
-        className="absolute z-0 rounded-full border border-neutral-100/20 pointer-events-none"
+        className="
+          absolute z-0 rounded-full border
+          border-neutral-100/40 border-b-neutral-100 border-t-neutral-100 
+          pointer-events-none
+        "
         style={{ width: radius * 1.2, height: radius * 1.2 }}
       />
       <Toaster position="bottom-left" expand={true} richColors />
