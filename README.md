@@ -1,55 +1,112 @@
-# 🚀 Prueba Técnica Frontend: Menú Radial Dinámico
+# Radial Menu 🎯
 
-¡Hola! Gracias por tu interés en unirte a nuestro equipo. Esta prueba técnica está diseñada para evaluar tus habilidades en el desarrollo de interfaces de usuario interactivas, tu dominio de CSS/Tailwind y tu capacidad para gestionar estados asíncronos en React/Next.js.
+## Este proyecto es una prueba técnica
 
-## 🎯 Objetivo
-Tu misión es construir una aplicación web de una sola página que obtenga una lista de imágenes desde una API externa y genere un **menú circular (radial) dinámico** basado en la cantidad de imágenes obtenidas. 
+- **Radial Menu** es un challenge de desarrollo frontend solicitado como prueba técnica.
+- Consiste en un **menú radial interactivo** que permite seleccionar imágenes y cambiar el fondo de la aplicación de forma dinámica.
+- Implementado con **Next.js 14** usando el **App Router** y arquitectura de Server/Client Components.
+- Cuenta con una **API REST CRUD propia** desarrollada con las **API Routes de Next.js**, integrada en el mismo proyecto.
+- La interfaz está construida con **Tailwind CSS** y escrita en **TypeScript**.
 
-Al interactuar con los elementos de este menú, la imagen de fondo de la aplicación debe cambiar de manera fluida para coincidir con el elemento seleccionado.
+---
 
-## 🛠️ Stack Tecnológico
-* **Framework:** Next.js (App Router recomendado).
-* **Estilos:** Tailwind CSS y CSS puro (para cálculos trigonométricos o animaciones complejas si lo consideras necesario).
-* **Librerías adicionales:** Eres libre de usar librerías de iconos (ej. Lucide, Heroicons), pero **no** debes usar librerías prefabricadas de menús circulares. La lógica del menú debe ser tuya.
+## Funcionalidades principales
 
-## 📋 Requerimientos Funcionales
+- **Menú radial:** Navegación circular con elementos distribuidos en forma radial.
+- **Cambio de fondo:** Al seleccionar una imagen del menú, el fondo de la aplicación se actualiza con una transición suave.
+- **CRUD de imágenes:** Crear, leer, actualizar y eliminar imágenes desde la API integrada.
+- **Toggle del menú:** Botón para ocultar/mostrar el menú radial con animación.
+- **Validación de dominios:** La API solo acepta URLs de dominios permitidos (Pexels, Unsplash, Picsum). Ejemplos válidos:
+  - `https://picsum.photos/id/1020/1920/1080`
+  - `https://images.pexels.com/photos/2061982/pexels-photo-2061982.jpeg`
+  - `https://images.unsplash.com/photo-1513061379709-ef0cd1695189?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`
 
-1.  **Consumo y creación de API:** Desarrolla una API local con operaciones CRUD para gestionar un catálogo de entre 4 y 8 imágenes de alta calidad (ej. paisajes, naturaleza, anime, peliculas, etc).
-    * La API debe tener todos los endpoints necesarios para obtener, guardar, actualizar y eliminar imágenes.
+---
 
-2.  **Menú Circular Dinámico:**
-    * El menú debe construirse de forma dinámica. Si la API devuelve 5 imágenes, el círculo debe dividirse en 5 partes iguales; si devuelve 8, en 8 partes.
-    * Los botones deben posicionarse matemáticamente formando un círculo perfecto alrededor de un eje central.
-    * Cada botón del menú debe contener una miniatura de la imagen (o un icono representativo).
-3.  **Interacción de Fondo:**
-    * Al hacer clic en un botón del anillo, la imagen de fondo de toda la pantalla debe cambiar a la imagen correspondiente.
-4.  **Estados de Carga (Loading & Placeholders):**
-    * Mientras la API responde, debe mostrarse un estado de carga general (Skeleton o Spinner).
-    * Al cambiar el fondo, debes manejar el tiempo que tarda la imagen de alta resolución en descargar. Se requiere implementar una técnica de *placeholder* (ej. mostrar una versión desenfocada o un color base) con una transición suave hacia la imagen final.
+## Tecnologías utilizadas
 
-## 🎨 Requerimientos de UI/UX y Animación
+- **Framework:** Next.js 14 (App Router)
+- **Lenguaje:** TypeScript
+- **Estilos:** Tailwind CSS
+- **Backend:** Next.js API Routes (CRUD)
+- **Despliegue:** Vercel
+- **Control de versiones:** Git & GitHub
 
-* **Transiciones:** El cambio de la imagen de fondo debe tener un *fade-in/fade-out* fluido, sin parpadeos abruptos.
-* **Hover States:** Los botones del menú circular deben reaccionar al pasar el cursor (escalar, brillar, etc.).
-* **Animación:** El menú circular debe tener una animación suave al cargar la página.
-* **Diseño:** El diseño debe ser moderno y atractivo, con una paleta de colores agradable.
-> #### * *Se premiará el uso de TypeScript. y la cantidad de interacciones que se puedan hacer con el menú circular.*
+---
 
-## ⚖️ Criterios de Evaluación
+## Decisiones técnicas
 
-Prestaremos especial atención a los siguientes aspectos:
+### Next.js App Router
+Se utilizó el **App Router** de Next.js 14, aprovechando los **Server Components** para el fetch inicial de imágenes (sin exponer la lógica al cliente) y **Client Components** únicamente donde se necesita interactividad, manteniendo el bundle del cliente lo más pequeño posible.
 
-1.  **Habilidad en CSS y Tailwind (Prioridad Alta):** Uso avanzado de utilidades de Tailwind. Capacidad para combinar Tailwind con variables CSS nativas (`var(--index)`) y la función `calc()` para posicionar los elementos del anillo matemáticamente.
-2.  **Lógica del Entorno Circular:** Entendimiento de cómo distribuir `N` elementos en un círculo de $360^\circ$ de forma dinámica.
-3.  **Optimización:** Uso correcto del componente `<Image />` de Next.js (si aplica), manejo de la caché de imágenes en el navegador, pre-carga de fondos y prevención de re-renderizados innecesarios.
-4.  **Gestión de Estados y Promesas:** Cómo manejas los tiempos de carga, errores de la API y la experiencia del usuario antes de que las imágenes estén listas.
-5.  **Calidad del Código:** Código limpio, modularizado (creación de componentes lógicos), uso correcto de Hooks y nombres de variables descriptivos.
-6.  **Originalidad:** Se evaluará la originalidad y creatividad en el diseño y la implementación de las funcionalidades, los estilos visuales son totalmente libres, desde los 80's hasta futurista.
+### API Routes como backend
+En lugar de un servidor externo, el backend vive dentro del mismo proyecto como **API Routes de Next.js** en `/api/images`. Esto simplifica el despliegue al tener frontend y backend en un solo repositorio y un solo deploy en Vercel.
 
-## 📦 Entregables
+> ⚠️ Los datos se almacenan en memoria (variable en el módulo). Al ser serverless en Vercel, los datos se reinician con cada cold start.
 
-1.  El código fuente alojado en un repositorio público de GitHub.
-2.  (Opcional pero altamente recomendado) Un enlace a la aplicación desplegada en producción (Vercel, Netlify, etc.).
-3.  Actualizar el `README.md` del repositorio con las instrucciones para correr el proyecto en local y cualquier decisión técnica importante que quieras destacar.
+### Tailwind CSS + TypeScript
+Se usó **Tailwind CSS** para todos los estilos, aprovechando clases utilitarias, valores arbitrarios con `[]` y variables CSS para efectos dinámicos (como la máscara radial del fondo del menú). Todo el proyecto está tipado con **TypeScript**.
 
-¡Mucho éxito!
+---
+
+## Correr el proyecto en local
+
+### Prerrequisitos
+
+- Node.js 18+
+- npm, yarn o pnpm
+
+### Instalación
+
+```bash
+# 1. Clonar el repositorio
+git clone https://github.com/tu-usuario/radial-menu.git
+cd radial-menu
+
+# 2. Instalar dependencias
+npm install
+
+# 3. Correr en desarrollo
+npm run dev
+```
+
+Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
+
+### Build de producción
+
+```bash
+npm run build
+npm start
+```
+
+---
+
+## API Endpoints
+
+Base URL local: `http://localhost:3000/api/images`
+
+| Método   | Endpoint      | Descripción                 |
+| -------- | ------------- | --------------------------- |
+| `GET`    | `/api/images` | Lista todas las imágenes    |
+| `POST`   | `/api/images` | Agrega una nueva imagen     |
+| `PUT`    | `/api/images` | Actualiza una imagen por ID |
+| `DELETE` | `/api/images` | Elimina una imagen por ID   |
+
+**Dominios permitidos para las URLs:**
+- `images.pexels.com`
+- `images.unsplash.com`
+- `picsum.photos`
+
+> 💡 **Tip:** Se recomienda usar imágenes de alta resolución para evitar pixelado en el fondo. Los ejemplos de arriba ya cumplen con este criterio.
+---
+
+## Demo
+
+Puedes ver la aplicación en funcionamiento aquí:  
+👉 **[Radial Menu](https://github.com/eric31t30)**
+
+---
+
+<div align="center">
+  <img src="/public/preview.png" alt="Captura de pantalla del proyecto Radial Menu">
+</div>
