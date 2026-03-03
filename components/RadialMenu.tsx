@@ -56,8 +56,8 @@ function RadialMenu({ images }: Props) {
 
   async function handleDelete() {
     if (!selectedImage) return;
-
-    await fetch("/api/images", {
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "";
+    await fetch(`${baseUrl}/api/images`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: selectedImage.id })

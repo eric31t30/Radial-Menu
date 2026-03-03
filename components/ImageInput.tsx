@@ -27,8 +27,9 @@ function ImageInput({ open, mode, editingImage, onClose }: Props) {
       setLoading(true);
 
       const isEdit = mode === "edit" && editingImage;
+      const baseUrl = process.env.NEXT_PUBLIC_API_URL || "";
 
-      const res = await fetch("/api/images", {
+      const res = await fetch(`${baseUrl}/api/images`, {
         method: isEdit ? "PUT" : "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(

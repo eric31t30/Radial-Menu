@@ -4,12 +4,8 @@ import MenuSection from "@/components/MenuSection";
 
 
 async function fetchImages() {
-
-  const baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : 'http://localhost:3000'
-
   try {
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "";
     const res = await fetch(`${baseUrl}/api/images`, {
       cache: "no-store",
     });
@@ -24,6 +20,7 @@ async function fetchImages() {
     return [];
   }
 }
+
 
 export default async function HomePage() {
 
