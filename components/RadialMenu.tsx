@@ -19,6 +19,7 @@ type InputMode = "add" | "edit" | null;
 function RadialMenu({ images }: Props) {
 
   const [inputMode, setInputMode] = useState<InputMode>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
   const { selectedImage, setSelectedImage } = useSelectedImage();
 
   const [lastMode, setLastMode] = useState<"add" | "edit">("add");
@@ -26,15 +27,21 @@ function RadialMenu({ images }: Props) {
   const router = useRouter();
   const breakPoints = useBreakPoints()
 
-  const radius = 
+  const radius =
+  !isLoaded ? 0 :
   breakPoints >= 1024 ? 190 :
   breakPoints >= 640 ? 180 :
   130;
   
-
   const diameter = radius * 2;
   const angleStep = 360 / images.length;
   const imagesLimit = 8;
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoaded(true);
+    }, 100);
+  })
 
   useEffect(() => {
     if (images?.length > 0) {
@@ -69,7 +76,14 @@ function RadialMenu({ images }: Props) {
   return (
     <section
       aria-label="Radial menu"
-      className="relative flex items-center justify-center h-screen w-screen z-10"
+      className={`
+        relative flex items-center justify-center h-screen w-screen z-10
+        transition-all duration-700 ease-out
+        ${isLoaded
+          ? 'opacity-100 scale-100'
+          : 'opacity-0 scale-75'
+        }
+      `}
     >
       <div className="
         absolute grid gap-3 gap-x-5!
@@ -78,7 +92,6 @@ function RadialMenu({ images }: Props) {
         lg:gap-3
         xl:gap-3
         2xl:gap-3
-
       ">
 
         <MenuButton
@@ -137,6 +150,7 @@ function RadialMenu({ images }: Props) {
               key={item.id}
               item={item}
               angle={angle}
+              visible={isLoaded}
               radius={radius}
               isSelected={item.id === selectedImage?.id}
               onSelect={handleSelect}
@@ -172,7 +186,7 @@ function RadialMenu({ images }: Props) {
         aria-hidden="true"
         className="
           absolute z-0 rounded-full border-2
-          bg-black/40 backdrop-blur-[2px]
+          bg-black/40
           border-neutral-100/40 border-b-neutral-100 border-t-neutral-100 
           pointer-events-none
         "

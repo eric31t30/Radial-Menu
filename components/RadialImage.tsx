@@ -8,19 +8,21 @@ type Props = {
   angle: number;
   radius: number;
   isSelected: boolean;
+  visible: boolean;
   onSelect: (item: ImageItem) => void;
 };
 
-function RadialImage({ item, angle, radius, isSelected, onSelect }: Props) {
+function RadialImage({ item, angle, radius, isSelected, visible, onSelect }: Props) {
 
   const [loaded, setLoaded] = useState(false)
 
   return (
     <div
       key={item.id}
-      className="
-        absolute cursor-pointer
-      "
+      className={`
+        absolute cursor-pointer transition-all duration-1000
+        ${visible ? "opacity-100" : "opacity-0"}
+      `}
       style={{
         transform: `
           rotate(${angle}deg)
