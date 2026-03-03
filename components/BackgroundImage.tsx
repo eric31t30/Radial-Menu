@@ -37,7 +37,7 @@ function BackgroundImage() {
   }
 
   return (
-    <div className='absolute inset-0 z-0'>
+    <div className='absolute inset-0 z-0 brightness-80'>
 
       {displayImage && (
         <Image
