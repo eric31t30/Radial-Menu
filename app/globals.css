@@ -10,5 +10,5 @@ body {
 }
 
 @theme {
-  --breakpoint-2xl: 1900px;
+  --breakpoint-2xl: 112.5rem;
 }

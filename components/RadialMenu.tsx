@@ -27,7 +27,7 @@ function RadialMenu({ images }: Props) {
   const breakPoints = useBreakPoints()
 
   const radius = 
-  breakPoints >= 1024 ? 220 :
+  breakPoints >= 1024 ? 190 :
   breakPoints >= 640 ? 180 :
   130;
   
@@ -72,10 +72,10 @@ function RadialMenu({ images }: Props) {
       className="relative flex items-center justify-center h-screen w-screen z-10"
     >
       <div className="
-        absolute grid gap-3
+        absolute grid gap-3 gap-x-5!
         grid-cols-2 grid-rows-2 
-        sm:gap-4 sm:gap-x-5
-        lg:gap-6
+        sm:gap-3
+        lg:gap-3
         xl:gap-3
         2xl:gap-3
 
@@ -92,7 +92,7 @@ function RadialMenu({ images }: Props) {
           active={inputMode === "add"}
           onClick={() => {
             if(images.length === imagesLimit){
-              toast.info(`Limite de imagens alcanzado (${images.length}/${imagesLimit})`)
+              toast.info(`Limite de imagenes alcanzado (${images.length}/${imagesLimit})`)
             }else{
               toggleMode("add")
             }
@@ -108,7 +108,7 @@ function RadialMenu({ images }: Props) {
           borderColor="border-orange-600"
           buttonClass={`${!selectedImage ? "pointer-events-none brightness-70" : ""}`}
           iconClass="invert"
-          size="size-7 sm:size-11"
+          size="size-7 sm:size-10"
           active={inputMode === "edit"}
           onClick={() => toggleMode("edit")}
           position="row-start-2"
@@ -122,7 +122,7 @@ function RadialMenu({ images }: Props) {
           borderColor="border-red-500"
           buttonClass={`${!selectedImage ? "pointer-events-none brightness-70" : ""}`}
           iconClass="invert"
-          size="size-7 sm:size-11"
+          size="size-7 sm:size-10"
           onClick={handleDelete}
           position="row-start-2"
           border="rounded-full"
@@ -162,7 +162,7 @@ function RadialMenu({ images }: Props) {
         style={{
           width: diameter * 1.35,
           height: diameter * 1.35,
-          backgroundColor: 'rgba(0, 0, 0, .7)',
+          backgroundColor: 'rgba(255, 255, 255, .2)',
           WebkitMaskImage: 'radial-gradient(circle, transparent 40%, black 80%)',
           maskImage: 'radial-gradient(circle, transparent 40%, black 80%)',
         }}
