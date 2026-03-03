@@ -2,6 +2,7 @@
 import { Suspense } from "react";
 import RadialMenu from "@/components/RadialMenu";
 import MainLoader from "@/components/loaders/MainLoader";
+import { SelectedImageProvider } from "@/context/SelectedImageContext";
 
 async function fetchImages() {
   try {
@@ -27,10 +28,15 @@ async function RadialMenuWrapper() {
 
 export default function HomePage() {
   return (
-    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-neutral-950 text-white">
-      <Suspense fallback={<MainLoader />}>
-        <RadialMenuWrapper />
-      </Suspense>
-    </main>
+    <SelectedImageProvider >
+      <main className="
+        relative flex min-h-screen items-center justify-center 
+        overflow-hidden bg-neutral-950 text-white
+      ">
+        <Suspense fallback={<MainLoader />}>
+          <RadialMenuWrapper />
+        </Suspense>
+      </main>
+    </SelectedImageProvider>
   );
 }

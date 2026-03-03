@@ -7,6 +7,7 @@ import MenuButton from "./MenuButton";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Toaster, toast } from "sonner";
+import { useSelectedImage } from "@/context/SelectedImageContext";
 
 type Props = {
   images: ImageItem[];
@@ -17,7 +18,8 @@ type InputMode = "add" | "edit" | null;
 function RadialMenu({ images }: Props) {
 
   const [inputMode, setInputMode] = useState<InputMode>(null);
-  const [selectedImage, setSelectedImage] = useState<ImageItem | null>(images[0]);
+  const { selectedImage, setSelectedImage } = useSelectedImage();
+
   const [lastMode, setLastMode] = useState<"add" | "edit">("add");
 
   const router = useRouter();
@@ -26,6 +28,12 @@ function RadialMenu({ images }: Props) {
   const diameter = radius * 2;
   const angleStep = 360 / images.length;
   const imagesLimit = 8;
+
+  useEffect(() => {
+    if (images?.length > 0) {
+      setSelectedImage(images[0]);
+    }
+  }, [images, setSelectedImage]);
 
   const toggleMode = (mode: InputMode) => {
     if (mode !== null) setLastMode(mode);
