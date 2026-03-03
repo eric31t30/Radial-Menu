@@ -8,3 +8,7 @@ body {
 * {
   box-sizing: border-box;
 }
+
+@theme {
+  --breakpoint-2xl: 1900px;
+}

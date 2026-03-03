@@ -8,6 +8,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Toaster, toast } from "sonner";
 import { useSelectedImage } from "@/context/SelectedImageContext";
+import { useBreakPoints } from "@/hooks/UseBreakPoints";
 
 type Props = {
   images: ImageItem[];
@@ -23,8 +24,14 @@ function RadialMenu({ images }: Props) {
   const [lastMode, setLastMode] = useState<"add" | "edit">("add");
 
   const router = useRouter();
+  const breakPoints = useBreakPoints()
 
-  const radius = 130;
+  const radius = 
+  breakPoints >= 1024 ? 220 :
+  breakPoints >= 640 ? 180 :
+  130;
+  
+
   const diameter = radius * 2;
   const angleStep = 360 / images.length;
   const imagesLimit = 8;
@@ -67,6 +74,10 @@ function RadialMenu({ images }: Props) {
       <div className="
         absolute grid gap-3
         grid-cols-2 grid-rows-2 
+        sm:gap-4 sm:gap-x-5
+        lg:gap-6
+        xl:gap-4 xl:gap-x-5
+        2xl:gap-3 2xl:gap-x-4
       ">
 
         <div className="w-full flex justify-center items-center col-span-2">
@@ -76,7 +87,8 @@ function RadialMenu({ images }: Props) {
             color="bg-white"
             borderColor="border-white"
             buttonClass={`${images.length === imagesLimit ? "opacity-50" : ""}`}
-            iconClass={inputMode === "add" ? "rotate-135 size-7" : "size-7"}
+            iconClass={inputMode === "add" ? "rotate-135" : ""}
+            size="sm:size-12 lg:size-14 xl:size-13 2xl:size-12"
             active={inputMode === "add"}
             onClick={() => {
               if(images.length === imagesLimit){
@@ -96,7 +108,7 @@ function RadialMenu({ images }: Props) {
             borderColor="border-orange-600"
             buttonClass={`${!selectedImage ? "pointer-events-none opacity-50" : ""}`}
             iconClass="invert"
-            size="size-7"
+            size="size-7 sm:size-10"
             active={inputMode === "edit"}
             onClick={() => toggleMode("edit")}
           />
@@ -110,7 +122,7 @@ function RadialMenu({ images }: Props) {
             borderColor="border-red-500"
             buttonClass={`${!selectedImage ? "pointer-events-none opacity-50" : ""}`}
             iconClass="invert"
-            size="size-7"
+            size="size-7 sm:size-10"
             onClick={handleDelete}
           />
         </div>
@@ -141,15 +153,14 @@ function RadialMenu({ images }: Props) {
 
       <span
         aria-hidden="true"
-        className="absolute z-0 rounded-full pointer-events-none bg-black/30"
-        style={{
-          width: diameter * 1.28,
-          height: diameter * 1.28,
-          backdropFilter: "blur(3px)",
-          maskImage: "radial-gradient(circle, transparent 40%, black 40%)",
-          WebkitMaskImage: "radial-gradient(circle, transparent 40%, black 40%)",
-        }}
+        className="
+          absolute z-0 rounded-full border
+          border-neutral-100/40 border-b-neutral-100 border-t-neutral-100 
+          pointer-events-none
+        "
+        style={{ width: diameter, height: diameter }}
       />
+
       <span
         aria-hidden="true"
         className="
@@ -157,7 +168,7 @@ function RadialMenu({ images }: Props) {
           border-neutral-100/40 border-b-neutral-100 border-t-neutral-100 
           pointer-events-none
         "
-        style={{ width: radius * 1.2, height: radius * 1.2 }}
+        style={{ width: radius * 1.1, height: radius * 1.1 }}
       />
       <Toaster position="bottom-left" expand={true} richColors />
     </section>
