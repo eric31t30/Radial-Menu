@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import Image from "next/image";
 import type { ImageItem } from "@/types/ImageItem";
 import MenuImageLoader from "./loaders/MenuImageLoader";
@@ -8,7 +8,7 @@ type Props = {
   angle: number;
   radius: number;
   isSelected: boolean;
-  onSelect: () => void;
+  onSelect: (item: ImageItem) => void;
 };
 
 function RadialImage({ item, angle, radius, isSelected, onSelect }: Props) {
@@ -28,7 +28,7 @@ function RadialImage({ item, angle, radius, isSelected, onSelect }: Props) {
           rotate(-${angle}deg)
         `,
       }}
-      onClick={onSelect}
+      onClick={()=> onSelect(item)}
     >
       <div
         className={`
@@ -49,11 +49,12 @@ function RadialImage({ item, angle, radius, isSelected, onSelect }: Props) {
         <Image
           src={item.url}
           alt={`Image ${item.id}`}
-          fill
-          sizes="80px"
-          quality={90}
+          width={200}
+          height={200}
+          quality={75}            
           className="
-            object-cover
+            absolute inset-0
+            object-cover w-full h-full
             transition duration-500
             group-hover:scale-110
             active:scale-105
@@ -68,4 +69,4 @@ function RadialImage({ item, angle, radius, isSelected, onSelect }: Props) {
   );
 }
 
-export default RadialImage;
+export default memo(RadialImage);
