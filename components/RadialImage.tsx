@@ -33,7 +33,7 @@ function RadialImage({ item, angle, radius, isSelected, onSelect }: Props) {
       <div
         className={`
           group flex justify-center items-center
-          relative size-18 overflow-hidden rounded-full shadow-md
+          relative size-16 overflow-hidden rounded-full shadow-md
           transition duration-500
           hover:scale-105 active:scale-105 border-3
           ${isSelected 
@@ -58,7 +58,7 @@ function RadialImage({ item, angle, radius, isSelected, onSelect }: Props) {
             absolute inset-0
             object-cover w-full h-full
             transition duration-500
-            group-hover:scale-110
+            group-hover:scale-105
             active:scale-105
           "
           onLoad={() => setLoaded(true)}
