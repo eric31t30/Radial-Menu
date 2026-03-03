@@ -5,31 +5,15 @@ import type { ImageItem } from "@/types/ImageItem";
 let images: ImageItem[] = [
   {
     id: crypto.randomUUID(),
-    url: "https://picsum.photos/id/1018/1920/1080",
+    url: "https://images.pexels.com/photos/2061982/pexels-photo-2061982.jpeg",
   },
   {
     id: crypto.randomUUID(),
-    url: "https://picsum.photos/id/1015/1920/1080",
+    url: "https://images.pexels.com/photos/1479436/pexels-photo-1479436.jpeg",
   },
   {
     id: crypto.randomUUID(),
-    url: "https://picsum.photos/id/1019/1920/1080",
-  },
-  {
-    id: crypto.randomUUID(),
-    url: "https://picsum.photos/id/1020/1920/1080",
-  },
-  {
-    id: crypto.randomUUID(),
-    url: "https://picsum.photos/id/1018/1920/1080",
-  },
-  {
-    id: crypto.randomUUID(),
-    url: "https://picsum.photos/id/1015/1920/1080",
-  },
-  {
-    id: crypto.randomUUID(),
-    url: "https://picsum.photos/id/1019/1920/1080",
+    url: "https://images.unsplash.com/photo-1498036882173-b41c28a8ba34?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     id: crypto.randomUUID(),
