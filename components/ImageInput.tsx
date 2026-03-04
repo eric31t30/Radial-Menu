@@ -86,7 +86,7 @@ function ImageInput({ open, mode, editingImage, onClose }: Props) {
         className={`
           absolute size-full translate-y-[200%]
           flex flex-col items-center justify-center
-          transition-opacity duration-300
+          transition-opacity duration-300 font-bold
           ${error ? "opacity-100" : "opacity-0 pointer-events-none"}
         `}
       >

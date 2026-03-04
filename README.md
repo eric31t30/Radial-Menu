@@ -17,8 +17,8 @@
 - **CRUD de imágenes:** Crear, leer, actualizar y eliminar imágenes desde la API integrada.
 - **Toggle del menú:** Botón para ocultar/mostrar el menú radial con animación.
 - **Validación de dominios:** La API solo acepta URLs de dominios permitidos (Pexels, Unsplash, Picsum). Ejemplos válidos:
-  - `https://picsum.photos/id/1020/1920/1080`
-  - `https://images.pexels.com/photos/2061982/pexels-photo-2061982.jpeg`
+  - `https://picsum.photos/id/400/1920/1080`
+  - `https://images.pexels.com/photos/36136468/pexels-photo-36136468.jpeg`
   - `https://images.unsplash.com/photo-1513061379709-ef0cd1695189?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`
 
 ---
@@ -103,7 +103,7 @@ Base URL local: `http://localhost:3000/api/images`
 ## Demo
 
 Puedes ver la aplicación en funcionamiento aquí:  
-👉 **[Radial Menu](https://github.com/eric31t30)**
+👉 **[Radial Menu](https://radial-menu-zeta.vercel.app/)**
 
 ---
 
