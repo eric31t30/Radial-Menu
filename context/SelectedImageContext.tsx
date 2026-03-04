@@ -9,11 +9,18 @@ type ContextType = {
 
 const SelectedImageContext = createContext<ContextType>({
   selectedImage: null,
-  setSelectedImage: () => {},
+  setSelectedImage: () => { },
 });
 
-export function SelectedImageProvider({ children }: { children: React.ReactNode }) {
-  const [selectedImage, setSelectedImage] = useState<ImageItem | null>(null);
+type ProviderProps = {
+  children: React.ReactNode;
+  initialImage?: ImageItem;
+};
+
+export function SelectedImageProvider({ children, initialImage }: ProviderProps) {
+  const [selectedImage, setSelectedImage] = useState<ImageItem | null>(
+    initialImage || null
+  );
   return (
     <SelectedImageContext.Provider value={{ selectedImage, setSelectedImage }}>
       {children}

@@ -2,7 +2,6 @@ import { SelectedImageProvider } from "@/context/SelectedImageContext";
 import BackgroundImage from "@/components/BackgroundImage";
 import MenuSection from "@/components/MenuSection";
 
-
 async function fetchImages() {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_API_URL || "";
@@ -21,21 +20,15 @@ async function fetchImages() {
   }
 }
 
-
 export default async function HomePage() {
-
   const images = await fetchImages();
+  const firstImage = images.length > 0 ? images[0] : undefined;
 
   return (
-    <SelectedImageProvider >
-      <main className="
-        relative min-h-screen flex items-center justify-center 
-        overflow-hidden bg-neutral-950 text-white
-      ">
-        
-      <MenuSection images={images}/>
-      <BackgroundImage />
-
+    <SelectedImageProvider initialImage={firstImage}>
+      <main className="relative min-h-screen flex items-center justify-center overflow-hidden bg-neutral-950 text-white">
+        <MenuSection images={images} />
+        <BackgroundImage images={images} />
       </main>
     </SelectedImageProvider>
   );

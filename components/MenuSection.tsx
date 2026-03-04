@@ -1,6 +1,6 @@
 'use client'
 
-import { Suspense, useState } from "react";
+import { Suspense, useState, useEffect } from "react";
 import RadialMenu from "@/components/RadialMenu";
 import MainLoader from "@/components/loaders/MainLoader";
 import MenuToggle from "@/components/MenuToggle";
@@ -12,18 +12,36 @@ type Props = {
 
 export default function MenuSection({ images }: Props) {
   const [menuVisible, setMenuVisible] = useState(true)
+  const [isLoaded, setIsLoaded] = useState(false)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoaded(true)
+    }, 0);
+  }, [])
 
   return (
     <>
-      <Suspense fallback={<MainLoader />}>
+
+    
+      <div className={`
+        absolute inset-0 bg-neutral-950 z-20 pointer-events-none
+        transition-opacity duration-2000
+        ${isLoaded ? "opacity-0" : "opacity-100"}
+      `}>
+        <MainLoader />
+      </div>
+
+      {images.length > 0 &&
         <div className={`
-          flex items-center justify-center w-full h-full z-10
-          transition duration-500
-          ${menuVisible ? "opacity-100" : "pointer-events-none opacity-0"}
-        `}>
+        flex items-center justify-center w-full h-full z-10
+        transition-all duration-500
+        ${menuVisible ? "opacity-100 pointer-events-auto" : "pointer-events-none opacity-0"}
+      `}>
           <RadialMenu images={images} />
         </div>
-      </Suspense>
+      }
+
       <MenuToggle onToggle={() => setMenuVisible(!menuVisible)}/>
     </>
   )
