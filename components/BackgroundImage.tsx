@@ -1,13 +1,29 @@
 "use client"
 import { useSelectedImage } from '@/context/SelectedImageContext'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
+import type { ImageItem } from '@/types/ImageItem'
 
-function BackgroundImage() {
+type Props = {
+  images: ImageItem[]
+}
+
+function BackgroundImage({ images }: Props) {
   const { selectedImage } = useSelectedImage()
   const [displayImage, setDisplayImage] = useState<string | null>(null)
   const [nextImage, setNextImage] = useState<string | null>(null)
   const [isTransitioning, setIsTransitioning] = useState(false)
+  const imageCache = useRef<Set<string>>(new Set())
+
+  useEffect(() => {
+    images.forEach((image) => {
+      if (!imageCache.current.has(image.url)) {
+        const img = new window.Image()
+        img.src = image.url
+        imageCache.current.add(image.url)
+      }
+    })
+  }, [images])
 
   useEffect(() => {
     if (!selectedImage) return
@@ -18,13 +34,23 @@ function BackgroundImage() {
     }
 
     if (displayImage !== selectedImage.url) {
-      const img = new window.Image()
-      img.src = selectedImage.url
-      img.onload = () => {
-  
-        setNextImage(selectedImage.url)
-        setIsTransitioning(true)
+      if (imageCache.current.has(selectedImage.url)) {
+        setTimeout(() => {
+          setNextImage(selectedImage.url)
+          setIsTransitioning(true)
+        }, 0)
+        
         setTimeout(() => setIsTransitioning(false), 50)
+      } else {
+
+        const img = new window.Image()
+        img.src = selectedImage.url
+        img.onload = () => {
+          imageCache.current.add(selectedImage.url)
+          setNextImage(selectedImage.url)
+          setIsTransitioning(true)
+          setTimeout(() => setIsTransitioning(false), 50)
+        }
       }
     }
   }, [selectedImage, displayImage])
@@ -37,7 +63,7 @@ function BackgroundImage() {
   }
 
   return (
-    <div className='absolute inset-0 z-0 brightness-80'>
+    <div className='absolute inset-0 z-0 brightness-75'>
 
       {displayImage && (
         <Image
@@ -67,7 +93,7 @@ function BackgroundImage() {
             className="object-cover"
             priority
             sizes="100vw"
-            quality={100}    
+            quality={100}
           />
         </div>
       )}
